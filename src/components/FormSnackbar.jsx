@@ -25,7 +25,15 @@ const FormSnackbar = () => {
 
 	const handleLike = () => {
 		try{
-			saveLikedFormSubmission(submission)
+			const formSubmission = {
+				...submission,
+				data: {
+					...submission.data,
+					liked: true,
+				},
+			};
+
+			saveLikedFormSubmission(formSubmission)
 				.then((value) => {
 					console.log(value);
 					setOpen(false);
