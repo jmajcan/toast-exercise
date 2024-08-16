@@ -51,9 +51,11 @@ export default function Content() {
   
     if (!hasSubmissionsChanged && submissionList.length > 0) {
       return submissionList.map(({data}, index) => (
-        <Typography key={index} variant="body1" sx={{fontStyle: 'italic', marginTop: 1}}>
-          {`${data.firstName} ${data.lastName}: ${data.email}`}
-        </Typography>
+        <Box>
+          <Typography key={`${index}.${data.id}`} variant="body1" sx={{fontStyle: 'italic',  marginTop: 2}}>
+            {`${index + 1}. ${data.firstName} ${data.lastName}: ${data.email}`}
+          </Typography>
+        </Box>
       ));
     } else if (!hasSubmissionsChanged && submissionList.length === 0) {
       return(
@@ -67,16 +69,14 @@ export default function Content() {
   }
 
   return (
-    <Box sx={{marginTop: 3, justifyContent: 'center'}}>
+    <Box sx={{marginTop: 3}}>
       <Typography variant="h4">Liked Form Submissions</Typography>
-        {hasSubmissionsChanged ? (
-          <Box sx={{marginTop: 2}}>
-            <CircularProgress/>
-          </Box>
-        ) : null}
+      {hasSubmissionsChanged ? (
         <Box sx={{marginTop: 2}}>
-          {renderContent()}
+          <CircularProgress/>
         </Box>
+      ) : null}
+      {renderContent()}
       <FormSnackbar />
     </Box>
   );
