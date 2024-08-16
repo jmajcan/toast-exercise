@@ -3,14 +3,16 @@ import React, { createContext, useContext, useState } from 'react';
 const ToastContext = createContext();
 
 const ToastProvider = ({ children }) => {
-  const [open, setOpen] = useState(false);
-  const [submission, setSubmission] = useState({});
+  const [ open, setOpen ] = useState(false);
+  const [ submission, setSubmission ] = useState({});
+  const [ hasSubmissionsChanged, setHasSubmissionsChanged] = useState(false);
 
   return (
     <ToastContext.Provider
       value={{
         open, setOpen,
-        submission, setSubmission
+        submission, setSubmission,
+        hasSubmissionsChanged, setHasSubmissionsChanged
       }}
     >
       {children}

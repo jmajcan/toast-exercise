@@ -6,10 +6,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 
 import { useToast } from '../contexts/ToastContext';
+import { saveLikedFormSubmission } from '../service/mockServer';
 
 
 const FormSnackbar = () => {
-	const { open, setOpen, submission } = useToast();
+	const { open, setOpen, submission, setHasSubmissionsChanged } = useToast();
 	const [ name, setName ] = useState('');
 	const [ email, setEmail ] = useState('');
 
@@ -21,7 +22,13 @@ const FormSnackbar = () => {
 	}, [submission])
 
 	const handleLike = () => {
-		console.log('submission', submission);
+		try{
+			saveLikedFormSubmission(submission);
+			setOpen(false);
+			setHasSubmissionsChanged(true)
+		} catch(err) {
+			console.log(`ERROR: ${err}`);
+		}
 	};
 
 	const action = (
