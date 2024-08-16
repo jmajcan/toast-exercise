@@ -5,7 +5,7 @@ const ToastContext = createContext();
 const ToastProvider = ({ children }) => {
   const [ open, setOpen ] = useState(false);
   const [ submission, setSubmission ] = useState({});
-  const [ hasSubmissionsChanged, setHasSubmissionsChanged] = useState(false);
+  const [ hasSubmissionsChanged, setHasSubmissionsChanged] = useState(true);
 
   return (
     <ToastContext.Provider
