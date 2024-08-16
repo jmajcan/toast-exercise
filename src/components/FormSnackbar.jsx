@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
@@ -7,13 +7,21 @@ import Typography from '@mui/material/Typography';
 
 import { useToast } from '../contexts/ToastContext';
 
+
 const FormSnackbar = () => {
-	const { open, setOpen } = useToast();
-	const [ name ] = useState('First Lastname');
-	const [ email ] = useState('email.address@domain.com');
+	const { open, setOpen, submission } = useToast();
+	const [ name, setName ] = useState('');
+	const [ email, setEmail ] = useState('');
+
+	useEffect(() => {
+		if (submission.data) {
+			setName(submission.data.firstName + ' ' + submission.data.lastName);
+			setEmail(submission.data.email);
+		}
+	}, [submission])
 
 	const handleLike = () => {
-		console.log('LIKE clicked add submission');
+		console.log('submission', submission);
 	};
 
 	const action = (

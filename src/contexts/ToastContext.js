@@ -4,13 +4,13 @@ const ToastContext = createContext();
 
 const ToastProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [submissions, setSubmissions] = useState([]);
+  const [submission, setSubmission] = useState({});
 
   return (
     <ToastContext.Provider
       value={{
         open, setOpen,
-        submissions, setSubmissions
+        submission, setSubmission
       }}
     >
       {children}

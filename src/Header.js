@@ -8,15 +8,20 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { createMockFormSubmission } from './service/mockServer';
 import { useToast } from './contexts/ToastContext';
+import { createMockFormSubmission, onMessage } from './service/mockServer';
 
 export default function Header() {
-  const { setOpen } = useToast();
+  const { setOpen, setSubmission } = useToast();
+
+  const getSubmission = (submission) => {
+    setSubmission(submission);
+  }
 
   const handleOnClick = () => {
-    setOpen(true);
+    onMessage(getSubmission);
     createMockFormSubmission();
+    setOpen(true);
   }
 
   return (
