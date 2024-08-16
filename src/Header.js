@@ -9,8 +9,16 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { createMockFormSubmission } from './service/mockServer';
+import { useToast } from './contexts/ToastContext';
 
 export default function Header() {
+  const { setOpen } = useToast();
+
+  const handleOnClick = () => {
+    setOpen(true);
+    createMockFormSubmission();
+  }
+
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
@@ -30,7 +38,7 @@ export default function Header() {
             variant="contained"
             size="small"
             color="secondary"
-            onClick={() => createMockFormSubmission()}
+            onClick={handleOnClick}
           >
             New Submission
           </Button>
