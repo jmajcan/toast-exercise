@@ -48,11 +48,11 @@ export default function Content() {
         </Box>
       );
     }
-  
+
     if (!hasSubmissionsChanged && submissionList.length > 0) {
       return submissionList.map(({data}, index) => (
-        <Box>
-          <Typography key={`${index}.${data.id}`} variant="body1" sx={{fontStyle: 'italic',  marginTop: 2}}>
+        <Box key={`${index}.${data.id}`}>
+          <Typography variant="body1" sx={{fontStyle: 'italic',  marginTop: 2}}>
             {`${index + 1}. ${data.firstName} ${data.lastName}: ${data.email}`}
           </Typography>
         </Box>
