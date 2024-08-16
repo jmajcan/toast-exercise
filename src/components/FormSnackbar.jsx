@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
 import { useToast } from '../contexts/ToastContext';
 import { saveLikedFormSubmission } from '../service/mockServer';
@@ -11,6 +12,7 @@ import { saveLikedFormSubmission } from '../service/mockServer';
 
 const FormSnackbar = () => {
 	const { open, setOpen, submission, setHasSubmissionsChanged } = useToast();
+	const [ openErrorAlert, setOpenErrorAlert ] = useState(false);
 	const [ name, setName ] = useState('');
 	const [ email, setEmail ] = useState('');
 
@@ -23,9 +25,17 @@ const FormSnackbar = () => {
 
 	const handleLike = () => {
 		try{
-			saveLikedFormSubmission(submission);
-			setOpen(false);
-			setHasSubmissionsChanged(true)
+			saveLikedFormSubmission(submission)
+				.then((value) => {
+					console.log(value);
+					setOpen(false);
+					setHasSubmissionsChanged(true);
+					setOpenErrorAlert(false)
+				})
+				.catch((err) => {
+					console.log(`ERROR ${err.status}: ${err.message}`);
+					setOpenErrorAlert(true)
+				});
 		} catch(err) {
 			console.log(`ERROR: ${err}`);
 		}
@@ -49,6 +59,19 @@ const FormSnackbar = () => {
 
 	return (
 		<div>
+			<Snackbar
+				open={openErrorAlert}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+				onClose={() => setOpenErrorAlert(false)}
+			>
+				<Alert
+					onClose={() => setOpenErrorAlert(false)}
+					severity="error"
+					variant="filled"
+				>
+					There was an error trying to save please try again.
+				</Alert>
+			</Snackbar>
 			<Snackbar
 				open={open}
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
